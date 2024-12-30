@@ -12,6 +12,9 @@ body{
 
 #main{
     display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 1fr 20rem 1fr;
+
 
     border: solid black 1px ;
     min-width: 60vw;
@@ -25,7 +28,15 @@ tr, td{
 }
 
 table{
+    
     border-collapse: collapse;
+}
+
+#table{
+    grid-row:2;
+    grid-column: 2;
+    justify-self: center;    
+    align-self: center;
 }
 
 .left-border{
