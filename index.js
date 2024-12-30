@@ -33,7 +33,9 @@ const Gameboard = (function(){
 
     function play(playerSymbol, row, column){
         gameboard[row][column] = playerSymbol
-        
+        if(checkWinner(playerSymbol)){
+            console.log(`${playerSymbol} wins!`)
+        }
     }
 
     return {
