@@ -23,8 +23,11 @@ body{
 
 tr, td{
     height: 4rem;
-    width: 4rem;
+    min-width: 4rem;
     border: 2px solid red;
+
+    text-align: center;
+    justify-content: center;    
 }
 
 table{

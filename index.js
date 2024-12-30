@@ -5,13 +5,13 @@ const Gameboard = (function(){
 
 
     function checkWinner(playerSymbol){
-        if(gameboard[0].every === playerSymbol){
+        if(gameboard[0].every(elem => elem === playerSymbol)){
             return true;
         }
-        else if(gameboard[1].every === playerSymbol){
+        else if(gameboard[1].every(elem => elem === playerSymbol)){
             return true;
         }
-        else if(gameboard[2].every === playerSymbol){
+        else if(gameboard[2].every(elem => elem === playerSymbol)){
             return true;
         }
         else if(gameboard[0][0] === playerSymbol && gameboard[1][1] === playerSymbol && gameboard[2][2] === playerSymbol){
@@ -54,15 +54,17 @@ const Gameboard = (function(){
     function play(playerSymbol){
         playGrid.forEach(elem => {
             elem.addEventListener('click', () => {
-                const row = Number(elem.getAttribute("row"))
-                const col = Number(elem.getAttribute("row"))
-
-                //check if space is empty
-                if(gameboard[row][col] === "."){
-                    gameboard[row][col] = playerSymbol;
-                    elem.textContent = playerSymbol;
-                }   
-                
+                if(!checkWinner(playerSymbol) && !checkTie(playerSymbol)){
+                    const row = Number(elem.getAttribute("row"))
+                    const col = Number(elem.getAttribute("col"))
+                    console.log(`${row}, ${col}`);
+                    //check if space is empty
+                    if(gameboard[row][col] === "."){
+                        gameboard[row][col] = playerSymbol;
+                        elem.textContent = playerSymbol;
+                    }
+                    
+                }
                 //check for winner or tie
                 if(checkWinner(playerSymbol)){
                     console.log(`${playerSymbol} wins!`);
