@@ -10,6 +10,23 @@ body{
     background-color: var(--backgroundColor);
 }
 
+#menu-bar{
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    font-size: 1.5rem;
+
+    padding: 10px;
+    width: 99vw;
+    padding-bottom: 10px;
+}
+
+#settings-img{
+    width: 2rem;
+    padding-right: 20px;
+}
+
 #main{
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -26,6 +43,8 @@ tr, td{
     min-width: 4rem;
     border: 2px solid red;
 
+    font-size: 3.5rem;
+    font-weight: 100;
     text-align: center;
     justify-content: center;    
 }

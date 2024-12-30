@@ -44,11 +44,10 @@ const Gameboard = (function(){
     }
 
     function resetBoard(){
-        gameboard = [[".",".","."],[".",".","."],[".",".","."]]
         setTimeout(() => {
             playGrid.forEach(elem => elem.textContent = "")
+            gameboard = [[".",".","."],[".",".","."],[".",".","."]]
         }, 2000);
-        
     }    
 
     function play(playerSymbol){
@@ -58,21 +57,22 @@ const Gameboard = (function(){
                     const row = Number(elem.getAttribute("row"))
                     const col = Number(elem.getAttribute("col"))
                     console.log(`${row}, ${col}`);
+
                     //check if space is empty
-                    if(gameboard[row][col] === "."){
+                    if(gameboard[row][col] === "." && !checkWinner(playerSymbol)){
                         gameboard[row][col] = playerSymbol;
                         elem.textContent = playerSymbol;
-                    }
-                    
-                }
-                //check for winner or tie
-                if(checkWinner(playerSymbol)){
-                    console.log(`${playerSymbol} wins!`);
-                    resetBoard();
-                }
-                else if(checkTie()){
-                    console.log(`It's a tie!`);
-                    resetBoard();
+
+                        //check for winner or tie
+                        if(checkWinner(playerSymbol)){
+                            console.log(`${playerSymbol} wins!`);
+                            resetBoard();
+                        }
+                        else if(checkTie()){
+                            console.log(`It's a tie!`);
+                            resetBoard();
+                        }
+                    }  
                 }
             });
         });
@@ -99,12 +99,4 @@ const Player = function(sign){
 const player1 = Player("x")
 const player2 = Player("o")
 Gameboard.play(player1.symbol)
-// Gameboard.play(player1.symbol, 1, 0)
-// Gameboard.play(player2.symbol, 2, 0)
-// Gameboard.play(player2.symbol, 0, 1)
-// Gameboard.play(player1.symbol, 1, 1)
-// Gameboard.play(player2.symbol, 2, 1)
-// Gameboard.play(player1.symbol, 0, 2)
-// Gameboard.play(player2.symbol, 1, 2)
-// Gameboard.play(player2.symbol, 2, 2)
 
