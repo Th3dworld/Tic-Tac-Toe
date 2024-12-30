@@ -1,0 +1,45 @@
+*{
+    --backgroundColor: white;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 99vh;
+    align-items: center;
+    background-color: var(--backgroundColor);
+}
+
+#main{
+    display: grid;
+
+    border: solid black 1px ;
+    min-width: 60vw;
+    flex: 1 1 auto;
+}
+
+tr, td{
+    height: 4rem;
+    width: 4rem;
+    border: 2px solid red;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.left-border{
+    border-left-color: var(--backgroundColor);
+}
+
+.top{
+    border-top-color: var(--backgroundColor);
+}
+
+.bottom{
+    border-bottom-color: var(--backgroundColor);
+}
+
+.right-border{
+    border-right-color: var(--backgroundColor);
+}
