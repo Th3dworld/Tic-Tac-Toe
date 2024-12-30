@@ -2,6 +2,8 @@
 const Gameboard = (function(){
     let gameboard = [[".",".","."],[".",".","."],[".",".","."]]
     const playGrid = Array.from(document.getElementsByTagName('td'));
+    let turn = 0;
+    let round = 0;
 
 
     function checkWinner(playerSymbol){
@@ -48,11 +50,31 @@ const Gameboard = (function(){
             playGrid.forEach(elem => elem.textContent = "")
             gameboard = [[".",".","."],[".",".","."],[".",".","."]]
         }, 2000);
+        round++;
+        turn = 0;
     }    
 
-    function play(playerSymbol){
+    function play(player1, player2){
+        let playerSymbol;
+
         playGrid.forEach(elem => {
             elem.addEventListener('click', () => {
+                
+                //Determine turns and change sides
+                if(round%2 === 0){
+                    if(turn%2 === 0){
+                        playerSymbol = player1.symbol
+                    }else{
+                        playerSymbol = player2.symbol
+                    }
+                }else{
+                    if(turn%2 === 0){
+                        playerSymbol = player2.symbol
+                    }else{
+                        playerSymbol = player1.symbol
+                    }
+                }
+
                 if(!checkWinner(playerSymbol) && !checkTie(playerSymbol)){
                     const row = Number(elem.getAttribute("row"))
                     const col = Number(elem.getAttribute("col"))
@@ -72,6 +94,7 @@ const Gameboard = (function(){
                             console.log(`It's a tie!`);
                             resetBoard();
                         }
+                        turn++;
                     }  
                 }
             });
@@ -80,7 +103,9 @@ const Gameboard = (function(){
 
     return {
         gameboard,
-        play
+        play,
+        checkTie,
+        checkWinner
     };
 })();
 
@@ -91,12 +116,13 @@ const Player = function(sign){
 
     const getPoints = () => {points};
     const incrementsPoints = () => {++points};
+    const resetPoints = () => {points = 0};
 
-    return {symbol, getPoints, incrementsPoints};
+    return {symbol, getPoints, incrementsPoints, resetPoints};
 }
 
-//Test game
-const player1 = Player("x")
-const player2 = Player("o")
-Gameboard.play(player1.symbol)
+//Run the game
+const player1 = Player("x");
+const player2 = Player("o");
+Gameboard.play(player1, player2);
 
