@@ -65,6 +65,8 @@ const Gameboard = (function(){
         let player;
 
         //Initialize scores
+        player1.resetPoints();
+        player2.resetPoints();
         player1Score.textContent = player1.getPoints();
         player2Score.textContent = player2.getPoints();
 
@@ -182,7 +184,11 @@ resetBtn.addEventListener("click", ()=>{
     dialog.showModal();
 });
 
-console.log("yes")
+//TODO
+/*
+Show whose turn it is
+Reset score with reset
+*/
 
 
 
