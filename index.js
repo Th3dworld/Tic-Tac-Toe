@@ -88,6 +88,7 @@ const Gameboard = (function(){
                         gameboard[row][col] = playerSymbol;
                         elem.textContent = playerSymbol;
                         turn++;
+                        
                         //check for winner or tie
                         if(checkWinner(playerSymbol)){
                             console.log(`${playerSymbol} wins!`);
