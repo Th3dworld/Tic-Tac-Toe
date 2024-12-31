@@ -46,12 +46,12 @@ const Gameboard = (function(){
     }
 
     function resetBoard(){
+        round++;
+        turn = 0;
         setTimeout(() => {
             playGrid.forEach(elem => elem.textContent = "")
             gameboard = [[".",".","."],[".",".","."],[".",".","."]]
         }, 2000);
-        round++;
-        turn = 0;
     }    
 
     function play(player1, player2){
@@ -59,15 +59,19 @@ const Gameboard = (function(){
 
         playGrid.forEach(elem => {
             elem.addEventListener('click', () => {
-                
+
                 //Determine turns and change sides
                 if(round%2 === 0){
+                    console.log("reached here")
+                    console.log(turn)
                     if(turn%2 === 0){
                         playerSymbol = player1.symbol
                     }else{
                         playerSymbol = player2.symbol
                     }
-                }else{
+                }else if(round%2 !== 0){
+                    console.log("reached")
+                    console.log(turn)
                     if(turn%2 === 0){
                         playerSymbol = player2.symbol
                     }else{
@@ -75,16 +79,15 @@ const Gameboard = (function(){
                     }
                 }
 
-                if(!checkWinner(playerSymbol) && !checkTie(playerSymbol)){
+                if(!checkWinner(player1.symbol) && !checkWinner(player2.symbol) && !checkTie(playerSymbol)){
                     const row = Number(elem.getAttribute("row"))
                     const col = Number(elem.getAttribute("col"))
-                    console.log(`${row}, ${col}`);
 
                     //check if space is empty
                     if(gameboard[row][col] === "." && !checkWinner(playerSymbol)){
                         gameboard[row][col] = playerSymbol;
                         elem.textContent = playerSymbol;
-
+                        turn++;
                         //check for winner or tie
                         if(checkWinner(playerSymbol)){
                             console.log(`${playerSymbol} wins!`);
@@ -94,7 +97,6 @@ const Gameboard = (function(){
                             console.log(`It's a tie!`);
                             resetBoard();
                         }
-                        turn++;
                     }  
                 }
             });
