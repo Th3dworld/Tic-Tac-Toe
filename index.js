@@ -1,11 +1,13 @@
 //IIFE to run game
 const Gameboard = (function(){
+
+    //Declare Variables
     let gameboard = [[".",".","."],[".",".","."],[".",".","."]]
     const playGrid = Array.from(document.getElementsByTagName('td'));
     let turn = 0;
     let round = 0;
 
-
+    //Check for winner or tie
     function checkWinner(playerSymbol){
         if(gameboard[0].every(elem => elem === playerSymbol)){
             return true;
@@ -88,7 +90,7 @@ const Gameboard = (function(){
                         gameboard[row][col] = playerSymbol;
                         elem.textContent = playerSymbol;
                         turn++;
-                        
+
                         //check for winner or tie
                         if(checkWinner(playerSymbol)){
                             console.log(`${playerSymbol} wins!`);
@@ -113,19 +115,50 @@ const Gameboard = (function(){
 })();
 
 //PLayer factory closure
-const Player = function(sign){
+const Player = function(sign, name){
     const symbol = sign;
     let points = 0;
+    let playerName = name;
 
     const getPoints = () => {points};
     const incrementsPoints = () => {++points};
     const resetPoints = () => {points = 0};
 
-    return {symbol, getPoints, incrementsPoints, resetPoints};
+    return {symbol, playerName, getPoints, incrementsPoints, resetPoints};
 }
 
+//Declare Variables
+const dialog = document.querySelector("dialog");
+const submitBtn = document.getElementById("submit-btn");
+const player1input = document.querySelector("#player-1")
+const player2input = document.querySelector("#player-2")
+const player1Name = document.querySelector("#contestant-1 > .name");
+const player2Name = document.querySelector("#contestant-2 > .name");
+let player1Score = document.querySelector("#contestant-1 > .score");
+let player2Score = document.querySelector("#contestant-2 > .score");
+
+//Run Modal operations
+dialog.showModal();
+
+submitBtn.addEventListener("click", (e) =>{
+    e.preventDefault();
+    player1Name.textContent = player1input.value;
+    player2Name.textContent = player2input.value;
+    player1Score.textContent = "0";
+    player2Score.textContent = "0";
+
+
+    dialog.close()
+});
+
+dialog.addEventListener("close", ()=>{
+    //Reset the values
+    player1input.value = ""
+    player2input.value = ""
+});
+
 //Run the game
-const player1 = Player("x");
-const player2 = Player("o");
+const player1 = Player("x", player1Name);
+const player2 = Player("o", player2Name);
 Gameboard.play(player1, player2);
 

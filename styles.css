@@ -28,6 +28,11 @@ body{
     justify-content: center;
 }
 
+::backdrop{
+    background-image: url(images/tic-tac-toe-svgrepo-com.svg);
+    background-size: 120px;
+    background-color: rgba(84, 234, 234, 0.73);
+}
 
 #menu-bar{
     flex: 0 1 auto;
